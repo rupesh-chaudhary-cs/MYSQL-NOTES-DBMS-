@@ -38,7 +38,7 @@ WHERE COMM IS NOT NULL AND COMM > 0;
 SELECT EMPNO, (SAL + IFNULL(COMM,0)) AS TOTAL_SALARY
 FROM EMPLOYEE;
 
--- 8. Display employee number and annual salary for each employee.
+-- 8. Display employee number and annual salary for each employee .
 SELECT EMPNO, (SAL * 12) AS ANNUAL_SALARY
 FROM EMPLOYEE;
 
