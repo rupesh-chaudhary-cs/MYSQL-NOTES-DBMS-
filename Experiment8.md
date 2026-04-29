@@ -1,0 +1,73 @@
+
+---
+
+# 📄 **Experiment 8.md**
+
+```md
+# Experiment 8: Joins and Multi-table Queries
+
+## Aim
+To perform join operations and multi-table queries.
+
+---
+
+## Queries
+
+```sql
+-- 1. Display all employees with their department name.
+SELECT E.ENAME, D.DNAME
+FROM EMPLOYEE E JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO;
+
+-- 2. Employees whose manager is JONES.
+SELECT E.ENAME, M.ENAME AS MANAGER
+FROM EMPLOYEE E JOIN EMPLOYEE M
+ON E.MGR = M.EMPNO
+WHERE M.ENAME='JONES';
+
+-- 3. Employee, job, dept, manager.
+SELECT E.ENAME, E.JOB, D.DNAME, M.ENAME AS MANAGER
+FROM EMPLOYEE E
+LEFT JOIN EMPLOYEE M ON E.MGR=M.EMPNO
+JOIN DEPARTMENT D ON E.DEPTNO=D.DEPTNO;
+
+-- 4. All except clerk sorted by salary desc.
+SELECT E.ENAME, E.JOB, E.SAL, D.DNAME
+FROM EMPLOYEE E JOIN DEPARTMENT D
+ON E.DEPTNO=D.DEPTNO
+WHERE E.JOB!='CLERK'
+ORDER BY SAL DESC;
+
+-- 5. Employees with/without manager.
+SELECT E.ENAME, IFNULL(M.ENAME,'NO MANAGER')
+FROM EMPLOYEE E
+LEFT JOIN EMPLOYEE M ON E.MGR=M.EMPNO;
+
+-- 6. Employees earning 36000 annually.
+SELECT ENAME, JOB, SAL*12 AS ANNUAL FROM EMPLOYEE
+WHERE SAL*12 >= 36000 OR JOB!='CLERK';
+
+-- 7. Employees earning 30000 annually.
+SELECT ENAME, JOB, SAL*12 FROM EMPLOYEE
+WHERE SAL*12 >= 30000 AND JOB!='CLERK';
+
+-- 8. Employee with manager details.
+SELECT E.ENAME, E.EMPNO, M.ENAME, M.EMPNO
+FROM EMPLOYEE E LEFT JOIN EMPLOYEE M
+ON E.MGR=M.EMPNO;
+
+-- 9. Dept name and sum salary.
+SELECT D.DNAME, D.DEPTNO, SUM(E.SAL)
+FROM EMPLOYEE E JOIN DEPARTMENT D
+ON E.DEPTNO=D.DEPTNO
+GROUP BY D.DEPTNO;
+
+-- 10. Employee number, name, dept location.
+SELECT E.EMPNO, E.ENAME, D.DNAME
+FROM EMPLOYEE E JOIN DEPARTMENT D
+ON E.DEPTNO=D.DEPTNO;
+
+-- 11. Employee name and dept name.
+SELECT E.ENAME, D.DNAME
+FROM EMPLOYEE E JOIN DEPARTMENT D
+ON E.DEPTNO=D.DEPTNO;
